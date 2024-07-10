@@ -1,43 +1,37 @@
-
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 class Solution {
-    void reverseList(ListNode*head, ListNode*tail){
-        ListNode*curr = head->next;
-        ListNode*prev=head;
-        ListNode*forward= NULL;
-        while(prev!=tail){
-            forward=curr->next;
-            curr->next=prev;
-            prev=curr;
-            curr=forward;
-        }
-        head->next=tail->next;
-    }
 public:
     ListNode* reverseBetween(ListNode* head, int left, int right) {
-        if (left == right) return head;
-
-        ListNode dummy(0, head);
-        ListNode* prevLeft = &dummy;
-
-        for (int i = 1; i < left; ++i) {
-            prevLeft = prevLeft->next;
+        if(head==NULL|| left == right){
+            return head;
         }
 
-        ListNode* start = prevLeft->next;
-        ListNode* end = start;
-        for (int i = left; i < right; ++i) {
-            end = end->next;
+        ListNode*curr=head;
+        ListNode dummy(0);
+        dummy.next = head;
+        ListNode* prev = &dummy;
+        // right= right-left;
+        for(int i=1;i<left;i++){
+            prev=curr;
+            curr=curr->next;
         }
-
-        ListNode* afterRight = end->next;
-
-        // Reverse the sublist
-        reverseList(start, end);
-
-        // Connect the reversed sublist back to the list
-        prevLeft->next = end;
-        start->next = afterRight;
-
+        ListNode* next= curr->next;
+        for (int i = 0; i < right - left; ++i){
+            next = curr->next;
+            curr->next = next->next;
+            next->next = prev->next;
+            prev->next = next;
+            // right--;
+        }
         return dummy.next;
     }
 };
