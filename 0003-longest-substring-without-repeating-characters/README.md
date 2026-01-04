@@ -34,4 +34,3 @@ Notice that the answer must be a substring, &quot;pwke&quot; is a subsequence an
 	<li><code>s</code> consists of English letters, digits, symbols and spaces.</li>
 </ul>
 
-*jaysheel*
