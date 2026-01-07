@@ -1,4 +1,4 @@
-// Last updated: 07/01/2026, 21:03:25
+// Last updated: 07/01/2026, 21:32:06
 1/**
 2 * Definition for a binary tree node.
 3 * struct TreeNode {
@@ -16,26 +16,27 @@
 15        if(root==nullptr){
 16            return 0;
 17        }
-18        int leftVal=ansTree(root->left,maxProd,totalSum),rightVal=ansTree(root->right,maxProd,totalSum);
-19        long long leftSum = leftVal+rightVal+root->val;
-20        long long rightSum = totalSum-leftSum;
-21        long long newProd = leftSum*rightSum;
-22        maxProd = max(maxProd, newProd);
-23        return leftSum;
-24    }
-25
-26    int treeSum(TreeNode* root){
-27        if(root==nullptr){
-28            return 0;
-29        }
-30        int leftSum=treeSum(root->left),rightSum=treeSum(root->right);
-31        return leftSum+rightSum+root->val;
-32    }
-33
-34    int maxProduct(TreeNode* root) {
-35        long long maxProd = INT_MIN;
-36        int totalSum=treeSum(root);
-37        ansTree(root,maxProd,totalSum);
-38        return maxProd % 1000000007;
-39    }
-40};
+18        long left = ansTree(root->left,maxProd,totalSum);
+19        long right = ansTree(root->right,maxProd,totalSum);
+20        long long leftSum = left + right + root->val;
+21        long long rightSum = totalSum-leftSum;
+22        long long newProd = leftSum*rightSum;
+23        maxProd = max(maxProd, newProd);
+24        return leftSum;
+25    }
+26
+27    int treeSum(TreeNode* root){
+28        if(root==nullptr){
+29            return 0;
+30        }
+31        int leftSum=treeSum(root->left),rightSum=treeSum(root->right);
+32        return leftSum+rightSum+root->val;
+33    }
+34
+35    int maxProduct(TreeNode* root) {
+36        long long maxProd = INT_MIN;
+37        int totalSum=treeSum(root);
+38        ansTree(root,maxProd,totalSum);
+39        return maxProd % 1000000007;
+40    }
+41};
